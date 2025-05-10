@@ -1,0 +1,28 @@
+.backgroundImage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  background-image: url('../assets/images/Fondo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  .containerImg{
+    position: relative;
+    width: 100%;
+    padding: 2rem 0 0 2rem;
+    text-align: start;
+    .logoImg{
+      object-fit: cover;
+      width: 15rem;
+    }
+  }
+
+}

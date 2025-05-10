@@ -1,0 +1,171 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border-radius: 2.5rem;
+  box-sizing: border-box;
+  padding: 2rem 0;
+  width: calc(100% - 14rem);
+  .title {
+    color: var(--color-primary);
+    padding-bottom: 20px;
+  }
+  h4{
+    font-weight: 400;
+  }
+  .inputsContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: end;
+    padding: 1.2rem;
+    box-sizing: border-box;
+    width: 100%;
+
+    .inputContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      background-color: white;
+      border-radius: 1.2rem;
+      box-sizing: border-box;
+      width: 100%;
+
+      label {
+        font-size: 1em;
+        margin-bottom: 0.5em;
+        white-space: nowrap;
+      }
+    }
+
+    button {
+      font-weight: 400;
+      border-radius: 0.6rem;
+      padding: 0.3em 2em;
+    }
+  }
+
+  .resultContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.2rem;
+    background-color: #fffaf0;
+    gap: 1rem;
+
+    .inputsResults {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      align-items: end;
+      box-sizing: border-box;
+      width: 100%;
+
+      .resultItem {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        border-radius: 1.2rem;
+        box-sizing: border-box;
+        width: 100%;
+
+        .resultInput {
+          border: 1px solid black;
+          background-color: transparent;
+        }
+
+        span {
+          font-size: 1em;
+          margin-bottom: 0.5em;
+          white-space: nowrap;
+        }
+      }
+    }
+    .tableResult {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+
+      .headerTitle {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        width: 100%;
+        .containerButton {
+          display: flex;
+          align-items: center;
+          justify-content: end;
+          button {
+            font-weight: 400;
+            border-radius: 0.6rem;
+            padding: 0.3em 2em;
+            background-color: var(--color-primary);
+          }
+        }
+      }
+      .tableHeader {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1rem;
+        width: 100%;
+        padding: 1rem;
+        color: white;
+        font-weight: 600;
+        box-sizing: border-box;
+        .tableHeaderItem {
+          p {
+            margin-bottom: 0.5em;
+            white-space: nowrap;
+          }
+        }
+      }
+      .tableBody {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1rem;
+        width: 100%;
+        padding: 1rem;
+        color: black;
+        font-weight: 400;
+        box-sizing: border-box;
+        overflow-y: auto;
+        max-height: 150px;
+        .tableBodyItem {
+          p {
+            margin-bottom: 0.5em;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+    .containerButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      button {
+        font-weight: 400;
+        border-radius: 0.6rem;
+        padding: 0.3em 2em;
+        background-color: var(--color-primary);
+      }
+    }
+  }
+  hr {
+    border: 1px solid var(--color-primary);
+    width: 100%;
+  }
+}

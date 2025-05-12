@@ -1,25 +1,16 @@
-import React from "react";
+import styles from "./modal.module.css";
 
-export const Modal = ({ icon, title, body, type=null}) => {
+export const Modal = ({ icon, title, isSuccess = true, children }) => {
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close">&times;</span>
-        <h2>Modal Title</h2>
-        <p>This is a modal window.</p>
-      </div>
-      <div className="modal-body">
-        <img src={icon} alt="Icon" />
-        <h2>{title}</h2>
-        <p>{body}</p>
-        {type == "info" ? (
-          <button className="btn btn-primary">Aceptar</button>
-        ) : (
-          <div className="modal-footer">
-            <button className="btn btn-secondary">Cancelar</button>
-            <button className="btn btn-primary">Aceptar</button>
-          </div>
-        )}
+    <div className={styles.overlay}>
+      <div className={styles.modal}>
+        <div className={styles.modalHeader}>
+          <i>{icon}</i>
+          <h2 className={`${isSuccess ? styles.success : styles.failure}`}>
+            {title}
+          </h2>
+        </div>
+        <div className={styles.modalBody}>{children}</div>
       </div>
     </div>
   );

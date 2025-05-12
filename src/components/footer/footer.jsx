@@ -89,7 +89,7 @@ export const Footer = () => {
       </div>
       <div className={styles.containerText}>
         <h4 className={styles.title}>Legales</h4>
-        <div className={styles.containerText}>
+        <div className={styles.text}>
           {sectionsLegalesArray.map((item, index) => (
             <div key={index} className={styles.text}>
               <a href={item.link} target="_blank" rel="noopener noreferrer">

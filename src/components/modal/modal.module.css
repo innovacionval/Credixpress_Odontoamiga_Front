@@ -1,0 +1,63 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(5px);
+
+  .success {
+    color: green;
+  }
+  .failure {
+    color: red;
+  }
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: max-content;
+    box-sizing: border-box;
+    padding: 2rem;
+    border-radius: 1rem;
+
+    .modalHeader {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .modalBody {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+
+      .modalFooter {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        button{
+          color: white
+        }
+      }
+
+    }
+  }
+}

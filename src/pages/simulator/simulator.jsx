@@ -11,10 +11,11 @@ export const Simulator = () => {
     {
       label: "Número de cuotas *",
       type: "select",
+      options: Array.from({ length: 60 }, (_, i) => (i + 1).toString()),
     },
     {
       label: "Selecciona día de pago *",
-      type: "select",
+      type: "date",
     },
   ];
 
@@ -124,14 +125,21 @@ export const Simulator = () => {
             <label className={styles.label}>{input.label}</label>
             {input.type === "text" ? (
               <input type="text" className={styles.input} />
-            ) : (
+            ) : input.type == "date" ? (
+              <input type="date" className={styles.input} />
+            ) : input.type == "select" ? (
               <select className={styles.select}>
                 <option value="">Seleccionar</option>
+                {input.options.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
               </select>
-            )}
+            ) : null}
           </div>
         ))}
-        <button type="submit" className={styles.button}>
+        <button type="button" className={styles.button}>
           Simular
         </button>
       </form>
@@ -176,7 +184,9 @@ export const Simulator = () => {
           </div>
         </div>
         <div className={styles.containerButton}>
-          <button onClick={handleRequestCredit} className={styles.button}>Solicitar crédito</button>
+          <button onClick={handleRequestCredit} className={styles.button}>
+            Solicitar crédito
+          </button>
         </div>
       </div>
     </div>

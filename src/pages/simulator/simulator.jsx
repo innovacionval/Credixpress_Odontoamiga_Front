@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./simulator.module.css";
 
 export const Simulator = () => {
+  const navigate = useNavigate();
   const inputs = [
     {
       label: "Valor a financiar *",
@@ -107,6 +109,10 @@ export const Simulator = () => {
     "$10.000",
     "$20.000",
   ];
+
+  const handleRequestCredit = () => {
+    navigate("/formulario");
+  };
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Simulador</h1>
@@ -170,7 +176,7 @@ export const Simulator = () => {
           </div>
         </div>
         <div className={styles.containerButton}>
-          <button className={styles.button}>Solicitar crédito</button>
+          <button onClick={handleRequestCredit} className={styles.button}>Solicitar crédito</button>
         </div>
       </div>
     </div>

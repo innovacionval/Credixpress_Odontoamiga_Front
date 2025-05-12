@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: light;
   color: rgba(255, 255, 255, 0.87);
 
   font-synthesis: none;
@@ -11,11 +11,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --color-primary: #FAB724;
+  background-color: white;
+
+  --color-primary: #fab724;
   --gray: #696969;
 }
-
-
 
 body {
   margin: 0;
@@ -26,15 +26,24 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  box-sizing: border-box;
 }
 
 h1 {
   font-size: 2.2em;
   line-height: 1.1;
 }
-h1,h2,h3,h4,h5,h6,label,p,span {
-  margin:0;
-  color:black
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+p,
+span {
+  margin: 0;
+  color: black
 }
 
 button {
@@ -57,7 +66,8 @@ button:focus-visible {
   outline: none;
 }
 
-input,select{
+input,
+select {
   border-radius: 1rem;
   border: 1px solid var(--color-primary);
   outline: none;
@@ -66,14 +76,11 @@ input,select{
   font-weight: 500;
   font-family: inherit;
   background-color: white;
-  color:black;
+  color: black;
   width: 100%;
   box-sizing: border-box;
   height: 35px;
 }
-
-
-
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -103,7 +110,7 @@ input,select{
   background: #f1f1f1;
 }
 
-input[type="checkbox"] {
+/* input[type="checkbox"] {
   width: 20px;
   height: 20px;
   border-radius: 0.5rem;
@@ -113,8 +120,6 @@ input[type="checkbox"] {
   color: black;
   box-sizing: border-box;
   cursor: pointer;
-  
-}
-
+} */
 
 

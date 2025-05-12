@@ -5,6 +5,7 @@
   width: 100%;
   background-color: white;
   padding: 2rem 1rem;
+  box-sizing: border-box;
 
   .containerLogo {
     img {

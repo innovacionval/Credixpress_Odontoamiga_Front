@@ -47,6 +47,7 @@
       font-weight: 400;
       border-radius: 0.6rem;
       padding: 0.3em 2em;
+      color: white
     }
   }
 
@@ -113,6 +114,7 @@
             border-radius: 0.6rem;
             padding: 0.3em 2em;
             background-color: var(--color-primary);
+            color: white;
           }
         }
       }
@@ -161,6 +163,7 @@
         border-radius: 0.6rem;
         padding: 0.3em 2em;
         background-color: var(--color-primary);
+        color: white
       }
     }
   }

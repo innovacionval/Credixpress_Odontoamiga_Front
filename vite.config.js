@@ -8,7 +8,7 @@ export default defineConfig(({ command }) => {
     base: "/",
   };
   if (command != "serve") {
-    config.base = "/odontoamiga/";
+    config.base = "/Credixpress_Odontoamiga_Front/";
     //config.base = "/";
   }
   return config;

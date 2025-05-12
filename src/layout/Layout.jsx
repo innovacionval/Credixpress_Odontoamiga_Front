@@ -1,8 +1,7 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 import logo from "../assets/images/LogoCrediXpress.png";
 import styles from "./Layout.module.css";
-import { Footer } from "../components/footer/Footer";
+import { Footer } from "../components/footer/footer";
 export const Layout = () => {
   return (
     <>

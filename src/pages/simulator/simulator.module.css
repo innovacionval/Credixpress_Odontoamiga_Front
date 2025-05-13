@@ -13,7 +13,7 @@
     color: var(--color-primary);
     padding-bottom: 20px;
   }
-  h4{
+  h4 {
     font-weight: 400;
   }
   .inputsContainer {
@@ -36,6 +36,12 @@
       box-sizing: border-box;
       width: 100%;
 
+      .errorMessage {
+        color: red;
+        font-size: 0.8em;
+        margin-top: 0.5em;
+      }
+
       label {
         font-size: 1em;
         margin-bottom: 0.5em;
@@ -47,7 +53,7 @@
       font-weight: 400;
       border-radius: 0.6rem;
       padding: 0.3em 2em;
-      color: white
+      color: white;
     }
   }
 
@@ -96,8 +102,8 @@
     .tableResult {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      overflow-y: auto;
       width: 100%;
 
       .headerTitle {
@@ -143,8 +149,6 @@
         color: black;
         font-weight: 400;
         box-sizing: border-box;
-        overflow-y: auto;
-        max-height: 150px;
         .tableBodyItem {
           p {
             margin-bottom: 0.5em;
@@ -163,7 +167,7 @@
         border-radius: 0.6rem;
         padding: 0.3em 2em;
         background-color: var(--color-primary);
-        color: white
+        color: white;
       }
     }
   }

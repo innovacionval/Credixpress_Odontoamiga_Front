@@ -13,6 +13,7 @@ export const moneyToFunction = (value) => {
 };
 
 export const dateSimulator = (date, day, quotes = 0, endDate = false) => {
+  quotes = Number(quotes);
   if (!date) return "";
   const newDate = new Date(date);
   if (!endDate) {

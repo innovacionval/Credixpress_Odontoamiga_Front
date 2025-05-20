@@ -99,6 +99,12 @@ export const Footer = () => {
           ))}
         </div>
       </div>
+      <div className={styles.containerVersion}>
+        <small>
+          © {new Date().getFullYear()} CrediXpress. All rights reserved.
+        </small>
+        <small>CrediXpress 1.0.0</small>
+      </div>
     </div>
   );
 };

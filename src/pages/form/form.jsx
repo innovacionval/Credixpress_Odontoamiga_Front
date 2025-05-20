@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./form.module.css";
 import { Modal } from "../../components/modal/modal";
 import stylesModal from "../../components/modal/modal.module.css";
+import documentoTerminos from "../../assets/documents/1_TÉRMINOS_Y_CONDICIONES_ODONTOAMIGA.pdf";
 
 export const Form = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -146,7 +147,7 @@ export const Form = () => {
             <label className={styles.label}>
               He leído y acepto la{" "}
               <a
-                href="https://cdn.prod.website-files.com/66799e6ddf33619721f76391/669fb0702f4ec3426d0f9a95_politica_tratamiento_de_datos_v2.pdf"
+                href={documentoTerminos}
                 target="_blank"
               >
                 <strong>Política de tratamiento de datos personales</strong>

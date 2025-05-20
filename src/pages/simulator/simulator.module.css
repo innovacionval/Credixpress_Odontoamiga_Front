@@ -8,7 +8,7 @@
   border-radius: 2.5rem;
   box-sizing: border-box;
   padding: 2rem 0;
-  width: calc(100% - 14rem);
+  width: calc(100% - 10rem);
   .title {
     color: var(--color-primary);
     padding-bottom: 20px;
@@ -24,6 +24,12 @@
     padding: 1.2rem;
     box-sizing: border-box;
     width: 100%;
+
+    @media (max-width: 800px) {
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: center;
+    }
 
     .inputContainer {
       flex: 1;
@@ -63,6 +69,7 @@
     justify-content: center;
     align-items: center;
     background-color: white;
+
     box-sizing: border-box;
     width: 100%;
     padding: 1.2rem;
@@ -77,6 +84,13 @@
       box-sizing: border-box;
       width: 100%;
 
+      @media (max-width: 800px) {
+        flex-direction: column;
+        gap: 1.2rem;
+        align-items: center;
+        
+      }
+
       .resultItem {
         flex: 1;
         display: flex;
@@ -87,9 +101,22 @@
         box-sizing: border-box;
         width: 100%;
 
+        @media (max-width: 800px) {
+          flex-direction: row;
+          width: 100%;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+        }
+
         .resultInput {
           border: 1px solid black;
           background-color: transparent;
+
+          @media (max-width: 800px) {
+            max-width: 200px;
+            min-width: auto;
+          }
         }
 
         span {
@@ -103,14 +130,17 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow-y: auto;
+      overflow: auto;
       width: 100%;
+      height: 40vh;
 
       .headerTitle {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
         width: 100%;
+        padding: 0 1.2rem;
+        box-sizing: border-box;
         .containerButton {
           display: flex;
           align-items: center;
@@ -134,6 +164,8 @@
         font-weight: 600;
         box-sizing: border-box;
         .tableHeaderItem {
+          width: 100%;
+          min-width: 100px;
           p {
             margin-bottom: 0.5em;
             white-space: nowrap;
@@ -150,6 +182,8 @@
         font-weight: 400;
         box-sizing: border-box;
         .tableBodyItem {
+          width: 100%;
+          min-width: 100px;
           p {
             margin-bottom: 0.5em;
             white-space: nowrap;

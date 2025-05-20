@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./form.module.css";
 import { Modal } from "../../components/modal/modal";
 import stylesModal from "../../components/modal/modal.module.css";
+import documentoTerminos from "../../assets/documents/1_TÉRMINOS_Y_CONDICIONES_ODONTOAMIGA.pdf";
 
 export const Form = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,14 +34,14 @@ export const Form = () => {
     },
     {
       name: "segundoApellido",
-      label: "Segundo Apellido",
+      label: "Segundo Apellido *",
       type: "text",
       required: true,
     },
     {
       name: "telefono",
       label: "Celular *",
-      type: "select",
+      type: "number",
       required: true,
     },
     {
@@ -75,7 +76,7 @@ export const Form = () => {
     },
     {
       name: "ciudad",
-      label: "Ciudad",
+      label: "Ciudad *",
       type: "text",
       required: true,
     },
@@ -109,19 +110,7 @@ export const Form = () => {
           {inputs.map((input, index) => (
             <div key={index} className={styles.inputContainer}>
               <label className={styles.label}>{input.label}</label>
-              {input.type === "text" ? (
-                <input
-                  required={input.required}
-                  type={input.type}
-                  className={styles.input}
-                />
-              ) : input.type == "date" ? (
-                <input
-                  required={input.required}
-                  type={input.type}
-                  className={styles.input}
-                />
-              ) : input.type == "select" ? (
+              {input.type == "select" ? (
                 <select required={input.required} className={styles.select}>
                   <option value="">Seleccionar</option>
                   {input.options &&
@@ -131,7 +120,13 @@ export const Form = () => {
                       </option>
                     ))}
                 </select>
-              ) : null}
+              ) : (
+                <input
+                  required={input.required}
+                  type={input.type}
+                  className={styles.input}
+                />
+              )}
             </div>
           ))}
           <div className={styles.inputContainerColumn}>
@@ -145,10 +140,7 @@ export const Form = () => {
             <input required type="checkbox" className={styles.checkbox} />
             <label className={styles.label}>
               He leído y acepto la{" "}
-              <a
-                href="https://cdn.prod.website-files.com/66799e6ddf33619721f76391/669fb0702f4ec3426d0f9a95_politica_tratamiento_de_datos_v2.pdf"
-                target="_blank"
-              >
+              <a href={documentoTerminos} target="_blank">
                 <strong>Política de tratamiento de datos personales</strong>
               </a>
             </label>

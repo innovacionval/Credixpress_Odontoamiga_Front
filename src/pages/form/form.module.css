@@ -27,9 +27,16 @@
     box-sizing: border-box;
     width: 100%;
 
+    @media (max-width: 800px) {
+      display: flex;
+      flex-direction: column;
+    }
+    
+
     .inputContainerColumn{
       grid-column: span 4;
       display: flex;
+      width: 100%;
       .checkbox{
         width: fit-content;
         background-color: white;

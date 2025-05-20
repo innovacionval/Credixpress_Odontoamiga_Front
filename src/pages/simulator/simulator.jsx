@@ -13,8 +13,9 @@ export const Simulator = () => {
     resultTasaEA: "",
     resultTasaMNV: "",
   });
-  const [finantialData, setFinantialData] = useState();
+  const [finantialData, setFinantialData] = useState([{}]);
   const [valueTable, setValueTable] = useState([]);
+  const [isViewTable, setIsViewTable] = useState(false);
   const navigate = useNavigate();
   const form = useForm();
   const {
@@ -40,6 +41,13 @@ export const Simulator = () => {
       });
       return;
     }
+    if (data.valueFinance > 100000000) {
+      setError("valueFinance", {
+        type: "manual",
+        message: "El valor a financiar debe ser menor a $100.000.000",
+      });
+      return;
+    }
     const newSimulator = {
       ...resultSimulator,
       resultQuotaValue: data.quotaValue,
@@ -51,7 +59,7 @@ export const Simulator = () => {
         true
       ),
     };
-    if (data.quotaValue >= 1 && data.quotaValue <= 12) {
+    if (data?.quotaValue >= 1 && data?.quotaValue <= 12) {
       newSimulator.resultTasaEA = finantialData[0]?.cp_ea;
       newSimulator.resultTasaMNV = finantialData[0]?.cp_nmv;
     } else if (data.quotaValue >= 13 && data.quotaValue <= 36) {
@@ -74,6 +82,10 @@ export const Simulator = () => {
       secureValue = 23000;
     } else if (data.valueFinance > 30000000 && data.valueFinance <= 50000000) {
       secureValue = 30000;
+    } else if (data.valueFinance > 50000000 && data.valueFinance <= 75000000) {
+      secureValue = 40000;
+    } else if (data.valueFinance > 75000000 && data.valueFinance <= 100000000) {
+      secureValue = 50000;
     }
 
     setResultSimulator(newSimulator);
@@ -82,10 +94,10 @@ export const Simulator = () => {
     const n = data.quotaValue;
     const P = data.valueFinance;
 
-    // Cálculo de cuota fija mensual
     const cuota =
-      (P * (tasaMensual * Math.pow(1 + tasaMensual, n))) /
-      (Math.pow(1 + tasaMensual, n) - 1);
+      (P * tasaMensual) /
+      (1- Math.pow(1 + tasaMensual, -n));
+
 
     let saldo = P;
 
@@ -100,7 +112,7 @@ export const Simulator = () => {
         date: fecha,
         amountQuota: functionToMoney(cuotaTotal),
         capital: functionToMoney(abonoCapital),
-        secureValue: secureValue,
+        secureValue: functionToMoney(secureValue),
         interest: functionToMoney(interes),
         balance: functionToMoney(saldo - abonoCapital),
       };
@@ -110,6 +122,7 @@ export const Simulator = () => {
     });
 
     setValueTable(cuotas);
+    setIsViewTable(true);
   };
 
 
@@ -183,6 +196,10 @@ export const Simulator = () => {
   const handleRequestCredit = () => {
     navigate("/formulario");
   };
+
+  const handlePrint = () => {
+    print();
+  }
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Simulador</h1>
@@ -241,7 +258,7 @@ export const Simulator = () => {
           Simular
         </button>
       </form>
-      <div className={styles.resultContainer}>
+      {isViewTable && <div className={styles.resultContainer}>
         <div className={styles.inputsResults}>
           {results.map((result, index) => (
             <div key={index} className={styles.resultItem}>
@@ -263,7 +280,7 @@ export const Simulator = () => {
               <h2>Plan de pago</h2>
             </div>
             <div className={styles.containerButton}>
-              <button className={styles.button}>Imprimir</button>
+              <button onClick={handlePrint} className={styles.button}>Imprimir</button>
             </div>
           </div>
           <div className={styles.tableHeader}>
@@ -288,7 +305,7 @@ export const Simulator = () => {
             Solicitar crédito
           </button>
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

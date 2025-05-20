@@ -34,14 +34,14 @@ export const Form = () => {
     },
     {
       name: "segundoApellido",
-      label: "Segundo Apellido",
+      label: "Segundo Apellido *",
       type: "text",
       required: true,
     },
     {
       name: "telefono",
       label: "Celular *",
-      type: "select",
+      type: "number",
       required: true,
     },
     {
@@ -76,7 +76,7 @@ export const Form = () => {
     },
     {
       name: "ciudad",
-      label: "Ciudad",
+      label: "Ciudad *",
       type: "text",
       required: true,
     },
@@ -110,19 +110,7 @@ export const Form = () => {
           {inputs.map((input, index) => (
             <div key={index} className={styles.inputContainer}>
               <label className={styles.label}>{input.label}</label>
-              {input.type === "text" ? (
-                <input
-                  required={input.required}
-                  type={input.type}
-                  className={styles.input}
-                />
-              ) : input.type == "date" ? (
-                <input
-                  required={input.required}
-                  type={input.type}
-                  className={styles.input}
-                />
-              ) : input.type == "select" ? (
+              {input.type == "select" ? (
                 <select required={input.required} className={styles.select}>
                   <option value="">Seleccionar</option>
                   {input.options &&
@@ -132,7 +120,13 @@ export const Form = () => {
                       </option>
                     ))}
                 </select>
-              ) : null}
+              ) : (
+                <input
+                  required={input.required}
+                  type={input.type}
+                  className={styles.input}
+                />
+              )}
             </div>
           ))}
           <div className={styles.inputContainerColumn}>
@@ -146,10 +140,7 @@ export const Form = () => {
             <input required type="checkbox" className={styles.checkbox} />
             <label className={styles.label}>
               He leído y acepto la{" "}
-              <a
-                href={documentoTerminos}
-                target="_blank"
-              >
+              <a href={documentoTerminos} target="_blank">
                 <strong>Política de tratamiento de datos personales</strong>
               </a>
             </label>

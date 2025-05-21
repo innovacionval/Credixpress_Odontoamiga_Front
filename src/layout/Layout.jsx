@@ -1,4 +1,3 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 import logo from "../assets/images/LogoCrediXpress.png";
 import styles from "./Layout.module.css";

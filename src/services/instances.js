@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_BACK_URL || "https://neptuno.valcredit.co:3000/api/v1/";
+const API_URL2 = import.meta.env.VITE_BACK2_URL || "https://neptuno.valcredit.co:3005/api/v2/";
 
 export const axiosInstanceBearer = axios.create({
   baseURL: API_URL,
@@ -8,6 +9,14 @@ export const axiosInstanceBearer = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+export const axiosInstanceBearer2 = axios.create({
+  baseURL: API_URL2,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 export const axiosInstanceFormData = axios.create({
   baseURL: API_URL,
   headers: {

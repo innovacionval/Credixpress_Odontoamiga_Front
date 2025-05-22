@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import styles from "./simulator.module.css";
 import { useForm } from "react-hook-form";
 import { dateSimulator, functionToMoney, moneyToFunction } from "../../utils";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getFinantialData } from "../../services/simulator.service";
+import { InfoSimulationContext } from "../../contexts/infoSimulationContext";
 
 export const Simulator = () => {
   const [resultSimulator, setResultSimulator] = useState({
@@ -16,6 +17,7 @@ export const Simulator = () => {
   const [finantialData, setFinantialData] = useState([{}]);
   const [valueTable, setValueTable] = useState([]);
   const [isViewTable, setIsViewTable] = useState(false);
+  const { setInfo } = useContext(InfoSimulationContext);
   const navigate = useNavigate();
   const form = useForm();
   const {
@@ -108,9 +110,9 @@ export const Simulator = () => {
       const cuotaTotal = cuota + secureValue;
 
       const cuotaObj = {
-        quotas: (i + 1).toString(),
-        date: fecha,
-        amountQuota: functionToMoney(cuotaTotal),
+        quote_number: (i + 1).toString(),
+        quote_date: fecha,
+        quote_amount: functionToMoney(cuotaTotal),
         capital: functionToMoney(abonoCapital),
         secureValue: functionToMoney(secureValue),
         interest: functionToMoney(interes),
@@ -119,6 +121,31 @@ export const Simulator = () => {
 
       saldo -= abonoCapital;
       return cuotaObj;
+    });
+
+
+    const cuotasList = cuotas.map((item) => {
+      return {
+        quote_number: Number(item.quote_number),
+        quote_date: item.quote_date,
+        quote_amount: moneyToFunction(item.quote_amount).toString(),
+        capital: moneyToFunction(item.capital).toString(),
+        interest: moneyToFunction(item.interest).toString(),
+        balance: moneyToFunction(item.balance).toString(),
+      }
+    });
+
+    setInfo({
+      amount: data.valueFinance.toString(),
+      simulation_info: {
+        AER: newSimulator.resultTasaEA,
+        EMNR: newSimulator.resultTasaMNV,
+        total_quotes: data.quotaValue,
+        insurance_value: secureValue.toString(),
+        start_date: newSimulator.resultDateStart,
+        end_date: newSimulator.resultDateEnd,
+        quotes_simulation: cuotasList
+      }
     });
 
     setValueTable(cuotas);

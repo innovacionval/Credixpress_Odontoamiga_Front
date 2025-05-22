@@ -1,12 +1,12 @@
 import styles from "./modal.module.css";
 
-export const Modal = ({ icon, title, isSuccess = true, children }) => {
+export const Modal = ({ icon, title, isSuccess = null, children }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
-          <i>{icon}</i>
-          <h2 className={`${isSuccess ? styles.success : styles.failure}`}>
+          <i className={isSuccess == 'approved' ? styles.successIcon : styles.failureIcon}>{icon}</i>
+          <h2 className={`${isSuccess == 'approved' ? styles.success : styles.failure}`}>
             {title}
           </h2>
         </div>

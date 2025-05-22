@@ -11,6 +11,12 @@
   box-sizing: border-box;
   padding: 2rem 0;
   width: calc(100% - 14rem);
+
+  @media (max-width: 800px) {
+    width: auto;
+    padding: 2rem 0 4rem 0;
+    
+  }
   .title {
     color: var(--color-primary);
     padding-bottom: 20px;

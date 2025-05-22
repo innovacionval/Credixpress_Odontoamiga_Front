@@ -66,15 +66,11 @@ export const Footer = () => {
           <p>Teléfono: 018000 123 456</p>
         </div>
         <div className={styles.text}>
-          <h4>Servicio al cliente</h4>
-          <p>Teléfono: 018000 123 456</p>
-        </div>
-        <div className={styles.text}>
           <p>PBX: 300 911 1322</p>
         </div>
         <div className={styles.text}>
           <p>
-            Dirección: Calle 123 # 45-67 <br />
+            Dirección: Cl. 64 #14-15, piso 4 <br />
             Bogotá, Colombia
           </p>
         </div>

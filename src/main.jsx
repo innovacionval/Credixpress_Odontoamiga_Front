@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename={import.meta.env.DEV ? '/' : '/Credixpress_Odontoamiga_Front/'}>
+    <BrowserRouter basename={import.meta.env.DEV ? '/' : '/Credixpress_Odontoamiga_Front_test/'}>
       <App />
     </BrowserRouter>
   </StrictMode>,

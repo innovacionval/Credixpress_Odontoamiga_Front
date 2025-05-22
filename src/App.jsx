@@ -12,12 +12,12 @@ import { ModalsPage } from './pages/modalsPage/modalsPage';
 function App() {
   const { info } = useContext(InfoSimulationContext);
   const navigate = useNavigate();
-  useEffect(() => {
+/*   useEffect(() => {
     if (info == null){
       navigate(ROUTES.HOME);
     }
   }
-  , []);
+  , []); */
 
   const element = useRoutes([
     {

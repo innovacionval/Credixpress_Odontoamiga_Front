@@ -1,17 +1,56 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./form.module.css";
 import { Modal } from "../../components/modal/modal";
 import stylesModal from "../../components/modal/modal.module.css";
 import documentoTerminos from "../../assets/documents/1_TÉRMINOS_Y_CONDICIONES_ODONTOAMIGA.pdf";
+import { InfoSimulationContext } from "../../contexts/infoSimulationContext";
+import { useForm } from "react-hook-form";
+import { AddprincipalDebtor } from "../../services/simulator.service";
+import { FaRegCheckCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export const Form = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm();
+  const { info } = useContext(InfoSimulationContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    if (e.target.checkValidity()) {
-      e.preventDefault();
-      setIsOpen(true);
-    }
+
+  const onSubmit = (data) => {
+
+    const dataDebtor = {
+      validation_type: "OTP",
+      person_data: {
+        name: `${data.nombre} ${data.segundoNombre}`,
+        last_name: `${data.primerApellido} ${data.segundoApellido}`,
+        type_person: "N",
+        email: data.correo,
+        document_type: data.tipoDocumento,
+        document_number: data.numeroDocumento,
+        cellular: data.telefono,
+        birthdate: data.fechaNacimiento,
+        expedition_date: data.fechaExpedicion,
+        address: data.direccion,
+        city: data.ciudad,
+        gender: data.barrio,
+        requested_amount: info?.amount,
+      },
+      simulation_info: info?.simulation_info,
+    };
+    AddprincipalDebtor(dataDebtor)
+      .then((res) => {
+        navigate(
+          `/modal?idRequest=${res.id_request}&idSignature=${res.id_signature}&status=${res.status}`
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const inputs = [
     {
@@ -55,6 +94,13 @@ export const Form = () => {
       label: "Tipo de documento *",
       type: "select",
       required: true,
+      options: [
+        { label: "Cédula de ciudadanía", value: "CC" },
+        { label: "Cédula de extranjería", value: "CE" },
+        { label: "Pasaporte", value: "PA" },
+        { label: "Tarjeta de identidad", value: "TI" },
+        { label: "Registro civil", value: "RC" },
+      ],
     },
     {
       name: "numeroDocumento",
@@ -92,8 +138,8 @@ export const Form = () => {
       type: "select",
       required: true,
       options: [
-        { label: "Masculino", value: "masculino" },
-        { label: "Femenino", value: "femenino" },
+        { label: "Masculino", value: "M" },
+        { label: "Femenino", value: "F" },
       ],
     },
   ];
@@ -105,13 +151,18 @@ export const Form = () => {
         <form
           id="creditForm"
           className={styles.inputsContainer}
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           {inputs.map((input, index) => (
             <div key={index} className={styles.inputContainer}>
               <label className={styles.label}>{input.label}</label>
               {input.type == "select" ? (
-                <select required={input.required} className={styles.select}>
+                <select
+                  className={styles.select}
+                  {...register(input.name, {
+                    required: input.required,
+                  })}
+                >
                   <option value="">Seleccionar</option>
                   {input.options &&
                     input.options.map((option, index) => (
@@ -122,10 +173,15 @@ export const Form = () => {
                 </select>
               ) : (
                 <input
-                  required={input.required}
                   type={input.type}
                   className={styles.input}
+                  {...register(input.name, {
+                    required: input.required,
+                  })}
                 />
+              )}
+              {errors[input.name] && (
+                <span className={styles.error}>Este campo es requerido</span>
               )}
             </div>
           ))}
@@ -167,14 +223,31 @@ export const Form = () => {
         </button>
       </div>
       {isOpen && (
-        <Modal icon={"a"} title="Solicitud Preaprobada" isSuccess={true}>
+        <Modal
+          icon={<FaRegCheckCircle />}
+          title="Solicitud Preaprobada"
+          isSuccess={true}
+        >
           <p>
-            <strong>¡Tu solicitud ha sido preaprobada!</strong>
+            <strong>¡Estás a un paso de obtener tu crédito!</strong>
           </p>
           <p>
             <strong>
-              Estás a un paso de obtener tu crédito con OdontoAmiga. Pronto nos
-              contactaremos para continuar con el proceso
+              Ahora procederemos con la validación de tu identidad. <br />
+              Para Completar este proceso, asegúrate de contar con lo siguiente:
+            </strong>
+          </p>
+          <p>
+            <strong>
+              Tu documento de identidad físico <br />
+              Acceso a la cámara frontal de tu dispositivo móvil <br />
+              Conexión estable a internet
+            </strong>
+          </p>
+          <p>
+            <strong>
+              Una vez validemos tu identidad, podrás firmar los documentos de
+              forma digital y habrás finalizado el proceso. ¡Así de fácil!
             </strong>
           </p>
           <div className={stylesModal.modalFooter}>
@@ -183,12 +256,6 @@ export const Form = () => {
               onClick={() => setIsOpen(false)}
             >
               Finalizar
-            </button>
-            <button
-              className={stylesModal.button}
-              onClick={() => setIsOpen(false)}
-            >
-              Volver
             </button>
           </div>
         </Modal>

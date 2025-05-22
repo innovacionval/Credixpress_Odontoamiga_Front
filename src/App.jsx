@@ -1,12 +1,24 @@
-import { useRoutes } from 'react-router-dom';
+import { useNavigate, useRoutes } from 'react-router-dom';
 import { ROUTES } from './routes';
 import { Simulator } from './pages/simulator/simulator';
 import { Form } from './pages/form/form';
 import { Document } from './pages/document/document';
 import { Layout } from './layout/Layout';
 import { NotFound } from './pages/notFound/NotFound';
+import { useContext, useEffect } from 'react';
+import { InfoSimulationContext } from './contexts/infoSimulationContext';
+import { ModalsPage } from './pages/modalsPage/modalsPage';
 
 function App() {
+  const { info } = useContext(InfoSimulationContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (info == null){
+      navigate(ROUTES.HOME);
+    }
+  }
+  , []);
+
   const element = useRoutes([
     {
       element: <Layout />,
@@ -15,6 +27,7 @@ function App() {
           path: ROUTES.HOME,
           element: <Simulator />,
         },
+        
         {
           path: ROUTES.FORM,
           element: <Form />,
@@ -23,6 +36,10 @@ function App() {
           path: ROUTES.DOCUMENT,
           element: <Document />,
         },
+        {
+          path: ROUTES.MODAL,
+          element: <ModalsPage />,
+        }
       ],
     },
     {

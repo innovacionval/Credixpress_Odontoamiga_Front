@@ -4,6 +4,7 @@ import stylesModal from "../../components/modal/modal.module.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { InfoSimulationContext } from "../../contexts/infoSimulationContext";
+import { FiAlertCircle } from "react-icons/fi";
 
 export const ModalsPage = () => {
   const [searchParams] = useSearchParams();
@@ -28,7 +29,7 @@ export const ModalsPage = () => {
   return (
     <>
       <Modal
-        icon={<FaRegCheckCircle />}
+        icon={status == 'approved' ? <FaRegCheckCircle /> : <FiAlertCircle />}
         title={isSuccess == "approved" ? "Solicitud preaprobada" : "Solicitud rechazada"}
         isSuccess={isSuccess}
       >

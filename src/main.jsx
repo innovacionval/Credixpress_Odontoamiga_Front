@@ -7,7 +7,7 @@ import { InfoSimulationProvider } from "./contexts/infoSimulationContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.DEV ? '/' : '/Credixpress_Odontoamiga_Front/'}>
       <InfoSimulationProvider>
         <App />
       </InfoSimulationProvider>

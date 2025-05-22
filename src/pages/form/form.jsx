@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styles from "./form.module.css";
 import { Modal } from "../../components/modal/modal";
-import stylesModal from "../../components/modal/modal.module.css";
 import documentoTerminos from "../../assets/documents/1_TÉRMINOS_Y_CONDICIONES_ODONTOAMIGA.pdf";
 import { InfoSimulationContext } from "../../contexts/infoSimulationContext";
 import { useForm } from "react-hook-form";
@@ -10,7 +9,6 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export const Form = () => {
-  const [isOpen, setIsOpen] = useState(true);
   const {
     register,
     handleSubmit,
@@ -222,44 +220,6 @@ export const Form = () => {
           Enviar
         </button>
       </div>
-      {isOpen && (
-        <Modal
-          icon={<FaRegCheckCircle />}
-          title="Solicitud Preaprobada"
-          isSuccess={true}
-        >
-          <p>
-            <strong>¡Estás a un paso de obtener tu crédito!</strong>
-          </p>
-          <p>
-            <strong>
-              Ahora procederemos con la validación de tu identidad. <br />
-              Para Completar este proceso, asegúrate de contar con lo siguiente:
-            </strong>
-          </p>
-          <p>
-            <strong>
-              Tu documento de identidad físico <br />
-              Acceso a la cámara frontal de tu dispositivo móvil <br />
-              Conexión estable a internet
-            </strong>
-          </p>
-          <p>
-            <strong>
-              Una vez validemos tu identidad, podrás firmar los documentos de
-              forma digital y habrás finalizado el proceso. ¡Así de fácil!
-            </strong>
-          </p>
-          <div className={stylesModal.modalFooter}>
-            <button
-              className={stylesModal.button}
-              onClick={() => setIsOpen(false)}
-            >
-              Finalizar
-            </button>
-          </div>
-        </Modal>
-      )}
     </>
   );
 };

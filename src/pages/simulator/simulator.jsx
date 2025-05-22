@@ -258,7 +258,7 @@ export const Simulator = () => {
           Simular
         </button>
       </form>
-      {<div className={isViewTable ? styles.resultContainer : styles.hide}>
+      {isViewTable&& <div className={ styles.resultContainer}>
         <div className={styles.inputsResults}>
           {results.map((result, index) => (
             <div key={index} className={styles.resultItem}>

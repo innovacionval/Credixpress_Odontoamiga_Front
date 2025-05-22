@@ -11,6 +11,8 @@
   box-sizing: border-box;
   padding: 2rem 0;
   width: calc(100% - 14rem);
+  max-height: max-content;
+  min-height: 826.66px;
   .title {
     color: var(--color-primary);
     padding-bottom: 20px;

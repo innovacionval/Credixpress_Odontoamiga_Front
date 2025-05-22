@@ -1,29 +1,27 @@
 .backgroundImage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto minmax(90vh, 1fr) auto;
+  justify-items: center;
   gap: 2rem;
   align-items: center;
-  background-image: url('../assets/images/Fondo.png');
+  background-image: url("../assets/images/Fondo.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
+  height: max-content;
   box-sizing: border-box;
 
-  .containerImg{
+  .containerImg {
     position: relative;
     width: 100%;
     padding: 2rem 0 0 2rem;
     text-align: start;
     box-sizing: border-box;
-    .logoImg{
+    .logoImg {
       object-fit: cover;
       width: 15rem;
     }
   }
-
 }

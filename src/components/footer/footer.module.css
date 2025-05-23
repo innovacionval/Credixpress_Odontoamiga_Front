@@ -1,6 +1,7 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
   gap: 1rem;
   width: 100%;
   background-color: white;
@@ -14,6 +15,12 @@
   }
 
   .containerLogo {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    p{
+      text-align: start;
+    }
     @media (max-width: 800px) {
       text-align: start;
     }
@@ -82,6 +89,25 @@
     gap: 5px;
     width: 100%;
     text-align: center;
-    grid-column: span 3;
+    grid-column: span 4;
+  }
+  .containerTerms{
+    grid-column: 2 / span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .terms{
+      margin: auto;
+    }
+    p{
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-weight: 400;
+      text-align: start;
+    }
+    h4{
+      text-align: start;
+    }
   }
 }

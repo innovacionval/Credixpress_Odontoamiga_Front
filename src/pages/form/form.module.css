@@ -10,12 +10,10 @@
   border-radius: 2.5rem;
   box-sizing: border-box;
   padding: 2rem 0;
-  width: calc(100% - 14rem);
+  width: calc(100% - 4rem);
 
   @media (max-width: 800px) {
-    width: auto;
     padding: 2rem 0 4rem 0;
-    
   }
   .title {
     color: var(--color-primary);
@@ -43,6 +41,9 @@
       grid-column: span 4;
       display: flex;
       width: 100%;
+      label{
+        text-align: start;
+      }
       .checkbox{
         width: fit-content;
         background-color: white;

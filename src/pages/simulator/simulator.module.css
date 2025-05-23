@@ -7,10 +7,20 @@
   background-color: white;
   border-radius: 2.5rem;
   box-sizing: border-box;
-  padding: 2rem 0 4rem 0;
+  padding: 2rem 0 0 0;
   width: calc(100% - 4rem);
-  @media (max-width: 800px) {
-    width: auto;    
+  
+  .containerHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.2rem;
+
+    h4:last-child {
+      color: var(--gray);
+    }
   }
   .title {
     color: var(--color-primary);
@@ -22,9 +32,9 @@
   .inputsContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 1rem;
-    align-items: end;
-    padding: 1.2rem;
+    padding: 1.2rem 1.2rem 2rem 1.2rem;
     box-sizing: border-box;
     width: 100%;
 
@@ -49,7 +59,13 @@
         color: red;
         font-size: 0.8em;
         margin-top: 0.5em;
+        min-height: 1rem;
+        visibility: hidden;
+        &.show {
+          visibility: visible;
+        }
       }
+      
 
       label {
         font-size: 1em;
@@ -135,7 +151,7 @@
       align-items: center;
       overflow: auto;
       @media (max-width: 800px) {
-        max-width: calc(100vw - 2.4rem);
+        max-width: calc(100vw - 4rem);
         min-width: auto;
       }
       min-width: 100%;

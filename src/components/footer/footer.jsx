@@ -48,10 +48,36 @@ export const Footer = () => {
       link: "http://quantum.sincap.co:8080/quantum-war/faces/app-public/quejas/registraqueja.xhtml?idunidad_=4",
     },
   ];
+
+  const services = [
+    {
+      name: "Edufast",
+      link: "https://www.valcredit.co/edufast",
+    },
+    {
+      name: "Seguros",
+      link: "https://www.valcredit.co/seguros",
+    },
+    {
+      name: "Factuval",
+      link: "https://www.valcredit.co/factuval",
+    },
+  ];
   return (
     <div className={styles.container}>
       <div className={styles.containerLogo}>
         <img src={logo} className={styles.logoImg} />
+        <p>Estamos reinventando el financiamiento</p>
+      </div>
+      <div className={styles.containerText}>
+        <h4 className={styles.title}>Servicios</h4>
+        {services.map((item, index) => (
+          <div key={index} className={styles.text}>
+            <a href={item.link} target="_blank" rel="noopener noreferrer">
+              {item.name}
+            </a>
+          </div>
+        ))}
       </div>
       <div className={styles.containerText}>
         <h4 className={styles.title}>Información</h4>
@@ -95,6 +121,24 @@ export const Footer = () => {
           ))}
         </div>
       </div>
+      <section class={styles.containerTerms}>
+        <div className={styles.terms}>
+          <h4>Términos y condiciones</h4>
+          <p>
+            Los términos que regulan la relación entre Valcredit y sus usuarios,
+            colaboradores, proveedores u otros contratistas, accionistas,
+            miembros de órganos de gobierno corporativo, acreedores y cualquier
+            otro grupo de interés, están contenidos en los documentos o textos
+            legales aplicables, incluyendo lo relevante con la información
+            presentada en este sitio web y en las normas aplicables.El contenido
+            vinculado a este sitio web tiene derechos reservados de propiedad
+            intelectual de Valcredit o de terceros.Para cualquier consulta
+            adicional, por favor póngase en contacto con nosotros a través de
+            nuestros canales oficiales.
+          </p>
+          <p>Todos los derechos reservados - © ValCredit S.A.S</p>
+        </div>
+      </section>
       <div className={styles.containerVersion}>
         <small>
           © {new Date().getFullYear()} CrediXpress. All rights reserved.

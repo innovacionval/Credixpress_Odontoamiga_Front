@@ -41,6 +41,14 @@ export const Simulator = () => {
         type: "manual",
         message: "El valor a financiar debe ser mayor a $1.000.000",
       });
+      setResultSimulator({
+        resultQuotaValue: "",
+        resultDateStart: "",
+        resultDateEnd: "",
+        resultTasaEA: "",
+        resultTasaMNV: "",
+      });
+      setIsViewTable(false);
       return;
     }
     if (data.valueFinance > 100000000) {
@@ -48,6 +56,14 @@ export const Simulator = () => {
         type: "manual",
         message: "El valor a financiar debe ser menor a $100.000.000",
       });
+      setResultSimulator({
+        resultQuotaValue: "",
+        resultDateStart: "",
+        resultDateEnd: "",
+        resultTasaEA: "",
+        resultTasaMNV: "",
+      });
+      setIsViewTable(false);
       return;
     }
     const newSimulator = {
@@ -96,10 +112,7 @@ export const Simulator = () => {
     const n = data.quotaValue;
     const P = data.valueFinance;
 
-    const cuota =
-      (P * tasaMensual) /
-      (1- Math.pow(1 + tasaMensual, -n));
-
+    const cuota = (P * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -n));
 
     let saldo = P;
 
@@ -123,7 +136,6 @@ export const Simulator = () => {
       return cuotaObj;
     });
 
-
     const cuotasList = cuotas.map((item) => {
       return {
         quote_number: Number(item.quote_number),
@@ -132,7 +144,7 @@ export const Simulator = () => {
         capital: moneyToFunction(item.capital).toString(),
         interest: moneyToFunction(item.interest).toString(),
         balance: moneyToFunction(item.balance).toString(),
-      }
+      };
     });
 
     setInfo({
@@ -144,14 +156,13 @@ export const Simulator = () => {
         insurance_value: secureValue.toString(),
         start_date: newSimulator.resultDateStart,
         end_date: newSimulator.resultDateEnd,
-        quotes_simulation: cuotasList
-      }
+        quotes_simulation: cuotasList,
+      },
     });
 
     setValueTable(cuotas);
     setIsViewTable(true);
   };
-
 
   const inputs = [
     {
@@ -226,12 +237,17 @@ export const Simulator = () => {
 
   const handlePrint = () => {
     print();
-  }
+  };
+  console.log(errors["valueFinance"]);
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Simulador</h1>
-      <h4>Simulá tu crédito con OdontoAmiga</h4>
-      <h4>Ingresa la información para dar inicio.</h4>
+      <div className={styles.containerHeader}>
+        <h1 className={styles.title}>Simulador</h1>
+        <h4>
+          Simulá tu crédito con <strong>OdontoAmiga</strong>
+        </h4>
+        <h4>Ingresa la información para dar inicio.</h4>
+      </div>
       <form
         className={styles.inputsContainer}
         onSubmit={handleSubmit(onSubmit)}
@@ -274,65 +290,73 @@ export const Simulator = () => {
                 ))}
               </select>
             ) : null}
-            {errors[input.name] && (
-              <span className={styles.errorMessage}>
-                {errors[input.name].message || "Campo requerido"}
-              </span>
-            )}
+            <span
+              className={
+                errors[input.name] == undefined
+                  ? styles.errorMessage
+                  : `${styles.errorMessage} ${styles.show}`
+              }
+            >
+              {errors[input.name]?.message || "Este campo es requerido"}
+            </span>
           </div>
         ))}
         <button type="submit" className={styles.button}>
           Simular
         </button>
       </form>
-      {isViewTable&& <div className={ styles.resultContainer}>
-        <div className={styles.inputsResults}>
-          {results.map((result, index) => (
-            <div key={index} className={styles.resultItem}>
-              <span className={styles.resultLabel}>{result.label}</span>
-              <input
-                type="text"
-                className={styles.resultInput}
-                value={result.value}
-                readOnly
-              />
-            </div>
-          ))}
-        </div>
-        <hr />
-        <div className={styles.tableResult}>
-          <div className={styles.headerTitle}>
-            <div className={styles.headerTitleItem}></div>
-            <div className={styles.headerTitleItem}>
-              <h2>Plan de pago</h2>
-            </div>
-            <div className={styles.containerButton}>
-              <button onClick={handlePrint} className={styles.button}>Imprimir</button>
-            </div>
-          </div>
-          <div className={styles.tableHeader}>
-            {headerTable.map((item, index) => (
-              <div key={index} className={styles.tableHeaderItem}>
-                <p>{item.label}</p>
+      {isViewTable && (
+        <div className={styles.resultContainer}>
+          <div className={styles.inputsResults}>
+            {results.map((result, index) => (
+              <div key={index} className={styles.resultItem}>
+                <span className={styles.resultLabel}>{result.label}</span>
+                <input
+                  type="text"
+                  className={styles.resultInput}
+                  value={result.value}
+                  readOnly
+                />
               </div>
             ))}
           </div>
-          {valueTable.map((item, index) => (
-            <div key={index} className={styles.tableBody}>
-              {Object.values(item).map((value, index) => (
-                <div key={index} className={styles.tableBodyItem}>
-                  <p>{value}</p>
+          <hr />
+          <div className={styles.tableResult}>
+            <div className={styles.headerTitle}>
+              <div className={styles.headerTitleItem}></div>
+              <div className={styles.headerTitleItem}>
+                <h2>Plan de pago</h2>
+              </div>
+              <div className={styles.containerButton}>
+                <button onClick={handlePrint} className={styles.button}>
+                  Imprimir
+                </button>
+              </div>
+            </div>
+            <div className={styles.tableHeader}>
+              {headerTable.map((item, index) => (
+                <div key={index} className={styles.tableHeaderItem}>
+                  <p>{item.label}</p>
                 </div>
               ))}
             </div>
-          ))}
+            {valueTable.map((item, index) => (
+              <div key={index} className={styles.tableBody}>
+                {Object.values(item).map((value, index) => (
+                  <div key={index} className={styles.tableBodyItem}>
+                    <p>{value}</p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className={styles.containerButton}>
+            <button onClick={handleRequestCredit} className={styles.button}>
+              Solicitar crédito
+            </button>
+          </div>
         </div>
-        <div className={styles.containerButton}>
-          <button onClick={handleRequestCredit} className={styles.button}>
-            Solicitar crédito
-          </button>
-        </div>
-      </div>}
+      )}
     </div>
   );
 };

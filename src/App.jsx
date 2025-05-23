@@ -1,13 +1,14 @@
 import { useNavigate, useRoutes } from 'react-router-dom';
 import { ROUTES } from './routes';
 import { Simulator } from './pages/simulator/simulator';
-import { Form } from './pages/form/form';
+import { FormDeudor } from './pages/form/formDeudor';
 import { Document } from './pages/document/document';
 import { Layout } from './layout/Layout';
 import { NotFound } from './pages/notFound/NotFound';
 import { useContext, useEffect } from 'react';
 import { InfoSimulationContext } from './contexts/infoSimulationContext';
 import { ModalsPage } from './pages/modalsPage/modalsPage';
+import { FormCodeudor } from './pages/formCodeudor/formCodeudor';
 
 function App() {
   const { info } = useContext(InfoSimulationContext);
@@ -30,7 +31,11 @@ function App() {
         
         {
           path: ROUTES.FORM,
-          element: <Form />,
+          element: <FormDeudor />,
+        },
+        {
+          path: ROUTES.FORM_CODEBTOR,
+          element: <FormCodeudor />,
         },
         {
           path: ROUTES.DOCUMENT,

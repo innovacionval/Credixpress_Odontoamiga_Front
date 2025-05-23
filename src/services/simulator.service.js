@@ -21,3 +21,14 @@ export const AddprincipalDebtor = (data) => {
       throw error
     })
 }
+
+export const AddCodeudor = (data) => {
+  return axiosInstanceBearer2.post("person/add/joint_debtor", data)
+    .then((response) => {
+      return response.data
+    })
+    .catch((error) => {
+      console.error("Error adding co-debtor:", error)
+      throw error
+    })
+}

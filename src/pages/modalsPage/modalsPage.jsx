@@ -8,11 +8,12 @@ import { FiAlertCircle } from "react-icons/fi";
 
 export const ModalsPage = () => {
   const [searchParams] = useSearchParams();
-  const {info} = useContext(InfoSimulationContext);
+  const { info } = useContext(InfoSimulationContext);
 
   const idRequest = searchParams.get("idRequest");
   const idSignature = searchParams.get("idSignature");
   const status = searchParams.get("status");
+  const isCodeudor = searchParams.get("isCodeudor");
 
   const [isSuccess, setIsSuccess] = useState(null);
   const navigate = useNavigate();
@@ -29,11 +30,15 @@ export const ModalsPage = () => {
   return (
     <>
       <Modal
-        icon={status == 'approved' ? <FaRegCheckCircle /> : <FiAlertCircle />}
-        title={isSuccess == "approved" ? "Solicitud preaprobada" : "Solicitud rechazada"}
+        icon={status == "approved" ? <FaRegCheckCircle /> : <FiAlertCircle />}
+        title={
+          isSuccess == "approved"
+            ? "Solicitud preaprobada"
+            : "Solicitud rechazada"
+        }
         isSuccess={isSuccess}
       >
-        {isSuccess == "approved" && (
+        {isSuccess == "approved" && isCodeudor == "false" && (
           <>
             <p>
               <strong>¡Estás a un paso de obtener tu crédito!</strong>
@@ -68,35 +73,36 @@ export const ModalsPage = () => {
             </div>
           </>
         )}
-        {isSuccess == "subsanable" && (
+        {isSuccess == "subsanable" && isCodeudor == "false" && (
           <>
             <p>
               <strong>Solicitud no aprobada</strong>
             </p>
             <p>
+              <strong>¡Pero aún hay opciones para ti!</strong>
+            </p>
+            <p>
               <strong>
-                ¡Pero aún hay opciones para ti!
+                Aunque no fue posible aprobar el valor total solicitado, podemos
+                ofrecerte un crédito por {info?.amount}
               </strong>
             </p>
             <p>
               <strong>
-                Aunque no fue posible aprobar el valor total solicitado, podemos ofrecerte un crédito por {info?.amount}
-              </strong>
-            </p>
-            <p>
-              <strong>
-                Si deseas continuar con este nuevo valor, estamos listos para seguir el proceso
+                Si deseas continuar con este nuevo valor, estamos listos para
+                seguir el proceso
               </strong>
             </p>
             <p>
               <strong>
                 ¿Prefieres mantener el monto inicial? <br />
-                Puedes hacerlo agregando un codeudor para continuar con el estudio.
+                Puedes hacerlo agregando un codeudor para continuar con el
+                estudio.
               </strong>
             </p>
             <p>
               <strong>
-                Indícanos cómo deseas proceder <br/>
+                Indícanos cómo deseas proceder <br />
                 ¡Estamos aquí para ayudarte!
               </strong>
             </p>
@@ -109,14 +115,16 @@ export const ModalsPage = () => {
               </button>
               <button
                 className={`${stylesModal.button} ${stylesModal.failure}`}
-                onClick={() => {}}
+                onClick={() =>
+                  navigate(`/formularioCodeudor?idRequest=${idRequest}`)
+                }
               >
                 Agregar codeudor
               </button>
             </div>
           </>
         )}
-        {isSuccess == "rejected" && (
+        {isSuccess == "rejected" && isCodeudor == "false" && (
           <>
             <p>
               <strong>Tu solicitud no ha sido aprobada.</strong>
@@ -133,6 +141,40 @@ export const ModalsPage = () => {
                 onClick={() => {}}
               >
                 Finalizar
+              </button>
+            </div>
+          </>
+        )}
+        {isSuccess == "rejected" && isCodeudor == "true" && (
+          <>
+            <p>
+              <strong>Tu codeudor no cumple con los requisitos</strong>
+            </p>
+            <p>
+              <strong>
+                Hemos evaluado la información de tu codeudor y, lamentablemente,
+                no cumple con los requisitos para respaldar tu solicitud de
+                crédito.
+              </strong>
+            </p>
+            <p>
+              <strong>
+                Puedes intentar nuevamente agregando un nuevo codeudor o
+                continuar con el monto preaprobado disponible para ti.
+              </strong>
+            </p>
+            <div className={stylesModal.modalFooter}>
+              <button
+                className={`${stylesModal.button} ${stylesModal.success}`}
+                onClick={() => {}}
+              >
+                Ingresar nuevo codeudor
+              </button>
+              <button
+                className={`${stylesModal.button} ${stylesModal.failure}`}
+                onClick={() => {}}
+              >
+                Aceptar monto preaprobado
               </button>
             </div>
           </>

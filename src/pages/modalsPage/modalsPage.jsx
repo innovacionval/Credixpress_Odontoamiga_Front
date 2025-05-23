@@ -166,7 +166,7 @@ export const ModalsPage = () => {
             <div className={stylesModal.modalFooter}>
               <button
                 className={`${stylesModal.button} ${stylesModal.success}`}
-                onClick={() => {}}
+                onClick={() => navigate(`/formularioCodeudor/?idRequest=${idRequest}`)}
               >
                 Ingresar nuevo codeudor
               </button>

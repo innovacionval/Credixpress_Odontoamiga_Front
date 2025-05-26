@@ -1,7 +1,7 @@
 import styles from "./form.module.css";
 import documentoTerminos from "../../assets/documents/1_TÉRMINOS_Y_CONDICIONES_ODONTOAMIGA.pdf";
 
-export const Form = ({inputs, form, onSubmit}) => {
+export const Form = ({ inputs, form, onSubmit }) => {
   return (
     <>
       <form
@@ -36,9 +36,16 @@ export const Form = ({inputs, form, onSubmit}) => {
                 })}
               />
             )}
-            {form.formState.errors[input.name] && (
-              <span className={styles.error}>Este campo es requerido</span>
-            )}
+
+            <span
+              className={
+                form.formState.errors[input.name] == undefined
+                  ? styles.errorMessage
+                  : `${styles.errorMessage} ${styles.show}`
+              }
+            >
+              {form.formState.errors[input.name]?.message || "Campo requerido"}
+            </span>
           </div>
         ))}
         <div className={styles.inputContainerColumn}>

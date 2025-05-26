@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./formDeudor.module.css";
 import { Modal } from "../../components/modal/modal";
 import { InfoSimulationContext } from "../../contexts/infoSimulationContext";
@@ -7,14 +7,35 @@ import { AddprincipalDebtor } from "../../services/simulator.service";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
+import { getCities } from "../../services/form.service";
 
 export const FormDeudor = () => {
   const form = useForm();
   const { info } = useContext(InfoSimulationContext);
+  const [cities, setCities] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getCities().then((res) => {
+      const formattedCities = res.map((city) => ({
+        label: city.name,
+        value: city.name,
+      })).sort((a, b) => a.label.localeCompare(b.label));
+      setCities(formattedCities);
+    }).catch((err) => {
+      console.error("Error fetching cities:", err);
+    });
+  }, []);
 
   const onSubmit = (data) => {
+
+    const getBirthYear = new Date(data.fechaNacimiento).getFullYear();
+    if (new Date().getFullYear() - getBirthYear < 18) {
+      form.setError("fechaNacimiento", {
+        type: "manual",
+        message: "Debes ser mayor de edad para continuar",
+      });
+    }
 
     const dataDebtor = {
       validation_type: "OTP",
@@ -71,18 +92,6 @@ export const FormDeudor = () => {
       required: true,
     },
     {
-      name: "telefono",
-      label: "Celular *",
-      type: "number",
-      required: true,
-    },
-    {
-      name: "correo",
-      label: "Correo *",
-      type: "text",
-      required: true,
-    },
-    {
       name: "tipoDocumento",
       label: "Tipo de documento *",
       type: "select",
@@ -102,6 +111,18 @@ export const FormDeudor = () => {
       required: true,
     },
     {
+      name: "telefono",
+      label: "Celular *",
+      type: "number",
+      required: true,
+    },
+    {
+      name: "correo",
+      label: "Correo *",
+      type: "text",
+      required: true,
+    },
+    {
       name: "fechaExpedicion",
       label: "Fecha de expedición *",
       type: "date",
@@ -116,7 +137,8 @@ export const FormDeudor = () => {
     {
       name: "ciudad",
       label: "Ciudad *",
-      type: "text",
+      type: "select",
+      options: cities,
       required: true,
     },
     {

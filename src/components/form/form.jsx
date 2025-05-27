@@ -2,6 +2,7 @@ import styles from "./form.module.css";
 import documentoTerminos from "../../assets/documents/1_TÉRMINOS_Y_CONDICIONES_ODONTOAMIGA.pdf";
 
 export const Form = ({ inputs, form, onSubmit }) => {
+  const politicaValcredit = 'https://cdn.prod.website-files.com/66799e6ddf33619721f76391/66d0cd0a7f3b2c9098354ed0_Pol%C3%ADtica%20de%20Tratamiento%20de%20Datos%20Valcredit.pdf'
   return (
     <>
       <form
@@ -63,15 +64,17 @@ export const Form = ({ inputs, form, onSubmit }) => {
         <div className={styles.inputContainerColumn}>
           <input required type="checkbox" className={styles.checkbox} />
           <label className={styles.label}>
-            Autorizo la consulta y reporte de mis datos a las centrales de
-            riesgo autorizadas por ValCredit
+            <a href={documentoTerminos} target="_blank">
+              Autorizo la consulta y reporte de mis datos a las centrales de
+              riesgo autorizadas por ValCredit
+            </a>
           </label>
         </div>
         <div className={styles.inputContainerColumn}>
           <input required type="checkbox" className={styles.checkbox} />
           <label className={styles.label}>
             He leído y acepto la{" "}
-            <a href={documentoTerminos} target="_blank">
+            <a href={politicaValcredit} target="_blank">
               <strong>Política de tratamiento de datos personales</strong>
             </a>
           </label>

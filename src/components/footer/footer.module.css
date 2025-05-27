@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   gap: 1rem;
   width: 100%;
@@ -92,19 +92,24 @@
     grid-column: span 4;
   }
   .containerTerms{
-    grid-column: 2 / span 2;
+    grid-column: span 3;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     .terms{
+      border-top: 1px solid var(--gray);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 0;
       margin: auto;
     }
     p{
       font-size: 0.8rem;
       color: var(--gray);
       font-weight: 400;
-      text-align: start;
+      text-align: center;
     }
     h4{
       text-align: start;

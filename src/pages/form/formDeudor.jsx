@@ -100,14 +100,13 @@ export const FormDeudor = () => {
         { label: "Cédula de ciudadanía", value: "CC" },
         { label: "Cédula de extranjería", value: "CE" },
         { label: "Pasaporte", value: "PA" },
-        { label: "Tarjeta de identidad", value: "TI" },
-        { label: "Registro civil", value: "RC" },
+        { label: "PTT", value: "PTT" },
       ],
     },
     {
       name: "numeroDocumento",
       label: "Número de documento *",
-      type: "text",
+      type: "number",
       required: true,
     },
     {
@@ -155,6 +154,7 @@ export const FormDeudor = () => {
       options: [
         { label: "Masculino", value: "M" },
         { label: "Femenino", value: "F" },
+        { label: "Otro", value: "O" },
       ],
     },
   ];

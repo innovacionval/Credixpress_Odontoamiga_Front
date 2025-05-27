@@ -27,6 +27,18 @@ export const Form = ({ inputs, form, onSubmit }) => {
                     </option>
                   ))}
               </select>
+            ) : input.name == "telefono" ? (
+              <input
+                type={input.type}
+                className={styles.input}
+                {...form.register(input.name, {
+                  required: input.required,
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: "El número debe tener 10 dígitos",
+                  },
+                })}
+              />
             ) : (
               <input
                 type={input.type}

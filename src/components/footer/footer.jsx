@@ -49,35 +49,11 @@ export const Footer = () => {
     },
   ];
 
-  const services = [
-    {
-      name: "Edufast",
-      link: "https://www.valcredit.co/edufast",
-    },
-    {
-      name: "Seguros",
-      link: "https://www.valcredit.co/seguros",
-    },
-    {
-      name: "Factuval",
-      link: "https://www.valcredit.co/factuval",
-    },
-  ];
   return (
     <div className={styles.container}>
       <div className={styles.containerLogo}>
         <img src={logo} className={styles.logoImg} />
         <p>Estamos reinventando el financiamiento</p>
-      </div>
-      <div className={styles.containerText}>
-        <h4 className={styles.title}>Servicios</h4>
-        {services.map((item, index) => (
-          <div key={index} className={styles.text}>
-            <a href={item.link} target="_blank" rel="noopener noreferrer">
-              {item.name}
-            </a>
-          </div>
-        ))}
       </div>
       <div className={styles.containerText}>
         <h4 className={styles.title}>Información</h4>

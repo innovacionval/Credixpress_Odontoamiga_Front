@@ -62,6 +62,7 @@ export const Simulator = () => {
         resultDateEnd: "",
         resultTasaEA: "",
         resultTasaMNV: "",
+        resultDailyTasa: "",
       });
       setIsViewTable(false);
       return;
@@ -77,15 +78,22 @@ export const Simulator = () => {
         true
       ),
     };
+    const fechaActual = new Date();
+    const fechaPrimerPago = dateSimulator(fechaActual, data.dayPay);
+    const diasPrimerPago = Math.ceil((new Date(fechaPrimerPago).getTime() - fechaActual.getTime()) / (1000 * 60 * 60 * 24));
+
     if (data?.quotaValue >= 1 && data?.quotaValue <= 12) {
       newSimulator.resultTasaEA = finantialData[0]?.cp_ea;
       newSimulator.resultTasaMNV = finantialData[0]?.cp_nmv;
+      newSimulator.resultDailyTasa = finantialData[0]?.cp_diaria;
     } else if (data.quotaValue >= 13 && data.quotaValue <= 36) {
       newSimulator.resultTasaEA = finantialData[0]?.mp_ea;
       newSimulator.resultTasaMNV = finantialData[0]?.mp_nmv;
+      newSimulator.resultDailyTasa = finantialData[0]?.mp_diaria;
     } else if (data.quotaValue >= 37 && data.quotaValue <= 60) {
       newSimulator.resultTasaEA = finantialData[0]?.lp_ea;
       newSimulator.resultTasaMNV = finantialData[0]?.lp_nmv;
+      newSimulator.resultDailyTasa = finantialData[0]?.lp_diaria;
     }
 
     if (data.valueFinance >= 1000000 && data.valueFinance <= 5000000) {
@@ -111,10 +119,13 @@ export const Simulator = () => {
     const tasaMensual = newSimulator.resultTasaMNV / 100;
     const n = data.quotaValue;
     const P = data.valueFinance;
-
+    
     const cuota = (P * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -n));
-
+    
     let saldo = P;
+    const tasaDiaria = newSimulator.resultDailyTasa / 100;
+
+    const interesExtra = diasPrimerPago > 0 ? saldo * tasaDiaria * diasPrimerPago : 0;
 
     const cuotas = Array.from({ length: n }, (_, i) => {
       const interes = saldo * tasaMensual;
@@ -122,13 +133,17 @@ export const Simulator = () => {
       const fecha = dateSimulator(new Date(), data.dayPay, i, true);
       const cuotaTotal = cuota + secureValue;
 
+      const interesTotal = i == 0 ? interes + interesExtra : interes;
+      const abonoTotalCapital = i == 0 ? abonoCapital + interesExtra : abonoCapital;
+      const cuotaTotalConInteres = i == 0 ? cuotaTotal + interesExtra : cuotaTotal;
+
       const cuotaObj = {
         quote_number: (i + 1).toString(),
         quote_date: fecha,
-        quote_amount: functionToMoney(cuotaTotal),
-        capital: functionToMoney(abonoCapital),
+        quote_amount: functionToMoney(cuotaTotalConInteres),
+        capital: functionToMoney(abonoTotalCapital),
         secureValue: functionToMoney(secureValue),
-        interest: functionToMoney(interes),
+        interest: functionToMoney(interesTotal),
         balance: functionToMoney(saldo - abonoCapital),
       };
 
@@ -238,7 +253,6 @@ export const Simulator = () => {
   const handlePrint = () => {
     print();
   };
-  console.log(errors["valueFinance"]);
   return (
     <div className={styles.container}>
       <div className={styles.containerHeader}>

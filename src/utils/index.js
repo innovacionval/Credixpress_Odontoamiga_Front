@@ -11,10 +11,10 @@ export const moneyToFunction = (value) => {
   if (!value) return 0;
 
   const clean = value
-    .replace(/\./g, "")      // quitar puntos (miles)
-    .replace(/,/g, ".")      // convertir la coma decimal en punto
-    .replace(/\$/g, "")      // quitar el símbolo de dólar
-    .replace(/\s/g, "");     // quitar espacios
+    .replace(/\./g, "") // quitar puntos (miles)
+    .replace(/,/g, ".") // convertir la coma decimal en punto
+    .replace(/\$/g, "") // quitar el símbolo de dólar
+    .replace(/\s/g, ""); // quitar espacios
 
   const number = Number(clean);
   return isNaN(number) ? 0 : number;
@@ -25,9 +25,17 @@ export const dateSimulator = (date, day, quotes = 0, endDate = false) => {
   if (!date) return "";
   const newDate = new Date(date);
   if (!endDate) {
-    newDate.setMonth(newDate.getMonth() + 1);
-  }else {
-    newDate.setMonth(newDate.getMonth() + (quotes + 1));
+    if (day < newDate.getDate()) {
+      newDate.setMonth(newDate.getMonth() + 1);
+    } else {
+      newDate.setMonth(newDate.getMonth());
+    }
+  } else {
+    if (day < newDate.getDate()) {
+      newDate.setMonth(newDate.getMonth() + quotes + 1);
+    } else {
+      newDate.setMonth(newDate.getMonth() + quotes);
+    }
   }
   newDate.setDate(day);
 

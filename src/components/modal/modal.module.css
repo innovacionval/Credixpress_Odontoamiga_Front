@@ -24,14 +24,13 @@
     display: flex;
     flex-direction: column;
     background-color: white;
-    justify-content: center;
     align-items: center;
     min-width: 20%;
     max-width: 90%;
-    width: 40%;
+    width: auto;
     height: max-content;
     box-sizing: border-box;
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 1rem;
 
     .modalHeader {
@@ -55,6 +54,19 @@
       justify-content: center;
       align-items: center;
       gap: 2rem;
+
+      ol, ul {
+        list-style: auto;
+        text-align: left;
+        font-weight: 600;
+        margin: 0;
+        box-sizing: border-box;
+        li {
+          font-weight: 400;
+          margin: 0.5rem 0;
+          color: black
+        }
+      }
 
       .modalFooter {
 

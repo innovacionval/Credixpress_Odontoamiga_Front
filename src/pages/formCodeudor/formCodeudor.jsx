@@ -40,7 +40,6 @@ export const FormCodeudor = () => {
     };
     AddCodeudor(dataCodebtor)
       .then((res) => {
-        console.log(res);
         navigate(
           `/modal?idRequest=${idRequest}&idSignature=${res?.id_signature}&status=${res?.status}&isCodeudor=true`
         );

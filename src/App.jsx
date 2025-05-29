@@ -9,6 +9,7 @@ import { useContext, useEffect } from 'react';
 import { InfoSimulationContext } from './contexts/infoSimulationContext';
 import { ModalsPage } from './pages/modalsPage/modalsPage';
 import { FormCodeudor } from './pages/formCodeudor/formCodeudor';
+import { InfoNoSignature } from './pages/infoNoSignature/infoNoSignature';
 
 function App() {
   const { info } = useContext(InfoSimulationContext);
@@ -44,6 +45,10 @@ function App() {
         {
           path: ROUTES.MODAL,
           element: <ModalsPage />,
+        },
+        {
+          path: ROUTES.INFO_NO_SIGNATURE,
+          element: <InfoNoSignature />,
         }
       ],
     },

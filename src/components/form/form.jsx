@@ -65,27 +65,26 @@ export const Form = ({ inputs, form, onSubmit }) => {
           <input required type="checkbox" className={styles.checkbox} />
           <label className={styles.label}>
             <a href={documentoTerminos} target="_blank">
-              Autorizo la consulta y reporte de mis datos a las centrales de
-              riesgo autorizadas por ValCredit
+              <strong>Autorizo a ValCredit a consultar y reportar mi información a las centrales de riesgo</strong>
             </a>
           </label>
         </div>
         <div className={styles.inputContainerColumn}>
           <input required type="checkbox" className={styles.checkbox} />
           <label className={styles.label}>
-            He leído y acepto la{" "}
+            He leído, comprendido y acepto la{" "}
             <a href={politicaValcredit} target="_blank">
               <strong>Política de tratamiento de datos personales</strong>
             </a>
           </label>
         </div>
         <div className={styles.inputContainerColumn}>
-          <input required type="checkbox" className={styles.checkbox} />
+          <input {...form.register("signature")} type="checkbox" className={styles.checkbox} />
           <label className={styles.label}>
+            Autorizo {" "}
             <a href="" target="_blank">
               <strong>
-                Autorizo la firma electrónica y condiciones de contratación
-                digital
+                 firmar electrónicamente y acepto las condiciones de contratación digital.
               </strong>
             </a>
           </label>

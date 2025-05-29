@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./formDeudor.module.css";
+import stylesModal from "../../components/modal/modal.module.css";
 import { Modal } from "../../components/modal/modal";
 import { InfoSimulationContext } from "../../contexts/infoSimulationContext";
 import { useForm } from "react-hook-form";
@@ -8,27 +9,46 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { getCities } from "../../services/form.service";
+import { TiInfoOutline } from "react-icons/ti";
 
 export const FormDeudor = () => {
   const form = useForm();
   const { info } = useContext(InfoSimulationContext);
+  const [isOpenModal, setIsOpenModal] = useState({
+    noSignature: false,
+    pendingSignature: false,
+  });
   const [cities, setCities] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getCities().then((res) => {
-      const formattedCities = res.map((city) => ({
-        label: city.name,
-        value: city.name,
-      })).sort((a, b) => a.label.localeCompare(b.label));
-      setCities(formattedCities);
-    }).catch((err) => {
-      console.error("Error fetching cities:", err);
-    });
+    getCities()
+      .then((res) => {
+        const formattedCities = res
+          .map((city) => ({
+            label: city.name,
+            value: city.name,
+          }))
+          .sort((a, b) => a.label.localeCompare(b.label));
+        setCities(formattedCities);
+      })
+      .catch((err) => {
+        console.error("Error fetching cities:", err);
+      });
   }, []);
 
-  const onSubmit = (data) => {
+  const handleCheckSignature = (data) => {
+    if (data.signature) {
+      onSubmit(data);
+    } else {
+      setIsOpenModal({
+        noSignature: true,
+        pendingSignature: false,
+      });
+    }
+  };
 
+  const onSubmit = (data) => {
     const getBirthYear = new Date(data.fechaNacimiento).getFullYear();
     if (new Date().getFullYear() - getBirthYear < 18) {
       form.setError("fechaNacimiento", {
@@ -64,6 +84,12 @@ export const FormDeudor = () => {
       })
       .catch((err) => {
         console.log(err);
+        if(err.response?.data?.status == "pending_signature") {
+          setIsOpenModal({
+            noSignature: false,
+            pendingSignature: true,
+          });
+        }
       });
   };
   const inputs = [
@@ -118,7 +144,7 @@ export const FormDeudor = () => {
     {
       name: "correo",
       label: "Correo *",
-      type: "text",
+      type: "email",
       required: true,
     },
     {
@@ -163,7 +189,77 @@ export const FormDeudor = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>¡Bienvenid@!</h1>
         <h3>Ingresa la información para dar inicio a tu solicitud</h3>
-        <Form inputs={inputs} form={form} onSubmit={onSubmit} />
+        <Form inputs={inputs} form={form} onSubmit={handleCheckSignature} />
+        {isOpenModal.noSignature&&<Modal
+          icon={<TiInfoOutline />}
+          title="¿Estás seguro de que no deseas firmar electrónicamente?"
+          isSuccess="approved"
+        >
+          <>
+            <p>
+              En CrediXpress queremos hacer tu proceso más fácil, por eso te
+              recordamos los beneficios de la firma electrónica:
+            </p>
+            <div className={styles.modalList}>
+              <p>
+                <strong>1.</strong> Sin costos adicionales
+              </p>
+              <p>
+                <strong>2.</strong> Sin necesidad de desplazamientos
+              </p>
+              <p>
+                <strong>3.</strong> Proceso rápido y sencillo
+              </p>
+              <p>
+                <strong>4.</strong> Seguridad y validez legal
+              </p>
+            </div>
+            <p>
+              Pero tranquilo, la decisión es totalmente tuya. Nuestro objetivo
+              es hacerte la vida más fácil, sin presiones
+            </p>
+            <div className={stylesModal.modalFooter}>
+              <button
+                className={`${stylesModal.button} ${stylesModal.success}`}
+                onClick={() => setIsOpenModal({ noSignature: false, pendingSignature: false })}
+              >
+                Regresar
+              </button>
+              <button
+                className={`${stylesModal.button} ${stylesModal.cancel}`}
+                onClick={() => {
+                  //onSubmit(form.getValues());
+                  navigate('/infoNoSignature')
+                }}
+              >
+                Continuar
+              </button>
+            </div>
+          </>
+        </Modal>}
+        {isOpenModal.pendingSignature && (
+          <Modal
+            icon={<TiInfoOutline />}
+            title="Solicitud pendiente de firma"
+            isSuccess="rejected"
+          >
+            <>
+              <p>
+                Estimado usuario, el documento ingresado ya tiene una
+                solicitud activa asociada. Te recomendamos verificar el
+                estado con la institución.
+              </p>
+              <div className={stylesModal.modalFooter}>
+                <button
+                  className={`${stylesModal.button} ${stylesModal.success}`}
+                  onClick={() => setIsOpenModal({ noSignature: false, pendingSignature: false })}
+                >
+                  Aceptar
+                </button>
+              </div>
+            </>
+          </Modal>
+        )}
       </div>
     </>
   );

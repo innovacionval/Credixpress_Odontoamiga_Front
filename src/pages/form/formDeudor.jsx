@@ -79,7 +79,7 @@ export const FormDeudor = () => {
     AddprincipalDebtor(dataDebtor)
       .then((res) => {
         navigate(
-          `/modal?idRequest=${res.id_request}&idSignature=${res.id_signature}&status=${res.status}isCodeudor=false`
+          `/modal?idRequest=${res.id_request}&idSignature=${res.id_signature}&status=${res.status}&isCodeudor=false`
         );
       })
       .catch((err) => {

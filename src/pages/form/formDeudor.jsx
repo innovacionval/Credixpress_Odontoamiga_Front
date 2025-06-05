@@ -58,7 +58,7 @@ export const FormDeudor = () => {
     }
 
     const dataDebtor = {
-      validation_type: "OTP",
+      id_client:"5",
       person_data: {
         name: `${data.nombre?.toLowerCase()} ${data.segundoNombre?.toLowerCase()}`,
         last_name: `${data.primerApellido?.toLowerCase()} ${data.segundoApellido?.toLowerCase()}`,

@@ -28,7 +28,7 @@ export const ModalsPage = () => {
       cellphone_number: "3204101697",
       id_request:"294",
       id_client: "5",
-      redirect_url: "http://localhost:5173/modal"
+      redirect_url: "https://innovacionval.github.io/Credixpress_Odontoamiga_Front/modal"
     }).then((res) => {
       if(res?.token_url){
         window.open(res.token_url, "_blank");

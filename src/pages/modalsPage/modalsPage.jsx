@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { InfoSimulationContext } from "../../contexts/infoSimulationContext";
 import { FiAlertCircle } from "react-icons/fi";
+import { validationFaceId, validationSignature } from "../../services/form.service";
 
 export const ModalsPage = () => {
   const [searchParams] = useSearchParams();
@@ -14,22 +15,58 @@ export const ModalsPage = () => {
   const idSignature = searchParams.get("idSignature");
   const status = searchParams.get("status");
   const isCodeudor = searchParams.get("isCodeudor");
+  const processId = searchParams.get("process_id");
 
   const [isSuccess, setIsSuccess] = useState(null);
+  const [isSignatureSuccess, setIsSignatureSuccess] = useState(null);
   const navigate = useNavigate();
+
+
+  const handleSignatureProcess = () => {
+    validationFaceId({
+      document_number: "10618151003",
+      cellphone_number: "3204101697",
+      id_request:"294",
+      id_client: "5",
+      redirect_url: "http://localhost:5173/modal"
+    }).then((res) => {
+      if(res?.token_url){
+        window.open(res.token_url, "_blank");
+      }
+    }).catch((err) => {
+      console.error("Error in validationFaceId:", err);
+    });
+  }
+
+  useEffect(() => {
+    if(processId){
+      validationSignature(processId)
+        .then((res) => {
+          console.log("Signature validation response:", res);
+          setIsSignatureSuccess(true)
+        })
+        .catch((err) => {
+          console.error("Error in validationSignature:", err);
+          setIsSignatureSuccess(false);
+        });
+    }
+  }
+  , [processId]);
+
 
   useEffect(() => {
     if (status == "approved") {
       setIsSuccess("approved");
-    } else if (status == "subsanable") {
-      setIsSuccess("subsanable");
+    } else if (status == "remediable") {
+      setIsSuccess("remediable");
     } else {
       setIsSuccess("rejected");
     }
   }, [status]);
+
   return (
     <>
-      <Modal
+      {!processId ? <Modal
         icon={status == "approved" ? <FaRegCheckCircle /> : <FiAlertCircle />}
         title={
           isSuccess == "approved"
@@ -66,14 +103,14 @@ export const ModalsPage = () => {
             <div className={stylesModal.modalFooter}>
               <button
                 className={`${stylesModal.button} ${stylesModal.success}`}
-                onClick={() => {}}
+                onClick={handleSignatureProcess}
               >
-                Finalizar
+                Continuar
               </button>
             </div>
           </>
         )}
-        {isSuccess == "subsanable" && isCodeudor == "false" && (
+        {isSuccess == "remediable" && isCodeudor == "false" && (
           <>
             <p>
               <strong>Solicitud no aprobada</strong>
@@ -180,6 +217,53 @@ export const ModalsPage = () => {
           </>
         )}
       </Modal>
+      : isSignatureSuccess ? <Modal
+        icon={<FaRegCheckCircle />}
+        title="Validación de firma"
+        isSuccess="approved"
+      >
+        <>
+          <p>
+            <strong>¡Tu firma ha sido validada exitosamente!</strong>
+          </p>
+          <p>
+            Documento firmado y procesado correctamente
+          </p>
+          <div className={stylesModal.modalFooter}>
+            <button
+              className={`${stylesModal.button} ${stylesModal.success}`}
+              onClick={() => navigate("/")}
+            >
+              Finalizar
+            </button>
+          </div>
+        </>
+
+      </Modal>:
+      <Modal
+        icon={<FiAlertCircle />}
+        title="Validación de firma"
+        isSuccess="rejected"
+      >
+        <>
+          <p>
+            <strong>¡Error al validar la firma!</strong>
+          </p>
+          <p>
+            No se pudo completar el proceso de firma. Por favor, intenta
+            nuevamente más tarde o contacta al soporte.
+          </p>
+          <div className={stylesModal.modalFooter}>
+            <button
+              className={`${stylesModal.button} ${stylesModal.success}`}
+              onClick={() => navigate("/")}
+            >
+              Finalizar
+            </button>
+          </div>
+        </>
+      </Modal>
+      }
     </>
   );
 };

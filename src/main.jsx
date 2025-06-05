@@ -4,11 +4,13 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { InfoSimulationProvider } from "./contexts/infoSimulationContext.jsx";
+import { RedirectOnLoad } from "./utils/redirect.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <InfoSimulationProvider>
+        <RedirectOnLoad />
         <App />
       </InfoSimulationProvider>
     </BrowserRouter>

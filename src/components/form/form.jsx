@@ -1,5 +1,6 @@
 import styles from "./form.module.css";
 import documentoTerminos from "../../assets/documents/1_TÉRMINOS_Y_CONDICIONES_ODONTOAMIGA.pdf";
+import firma from "../../assets/documents/firmaElectronica.pdf";
 
 export const Form = ({ inputs, form, onSubmit }) => {
   const politicaValcredit = 'https://cdn.prod.website-files.com/66799e6ddf33619721f76391/66d0cd0a7f3b2c9098354ed0_Pol%C3%ADtica%20de%20Tratamiento%20de%20Datos%20Valcredit.pdf'
@@ -82,7 +83,7 @@ export const Form = ({ inputs, form, onSubmit }) => {
           <input {...form.register("signature")} type="checkbox" className={styles.checkbox} />
           <label className={styles.label}>
             Autorizo {" "}
-            <a href="" target="_blank">
+            <a href={firma} target="_blank">
               <strong>
                  firmar electrónicamente y acepto las condiciones de contratación digital.
               </strong>

@@ -1,9 +1,16 @@
 import styles from "./form.module.css";
 import documentoTerminos from "../../assets/documents/1_TÉRMINOS_Y_CONDICIONES_ODONTOAMIGA.pdf";
 import firma from "../../assets/documents/firmaElectronica.pdf";
+import { ModalAdress } from "../modalAddress/modalAdress";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export const Form = ({ inputs, form, onSubmit }) => {
-  const politicaValcredit = 'https://cdn.prod.website-files.com/66799e6ddf33619721f76391/66d0cd0a7f3b2c9098354ed0_Pol%C3%ADtica%20de%20Tratamiento%20de%20Datos%20Valcredit.pdf'
+  const politicaValcredit =
+    "https://cdn.prod.website-files.com/66799e6ddf33619721f76391/66d0cd0a7f3b2c9098354ed0_Pol%C3%ADtica%20de%20Tratamiento%20de%20Datos%20Valcredit.pdf";
+  const [isOpenAdress, setIsOpenAddress] = useState(false);
+  const formAdress = useForm();
+
   return (
     <>
       <form
@@ -41,6 +48,15 @@ export const Form = ({ inputs, form, onSubmit }) => {
                   },
                 })}
               />
+            ) : input.name == "direccion" ? (
+              <input
+                type={input.type}
+                className={styles.input}
+                {...form.register(input.name, {
+                  required: input.required,
+                })}
+                onClick={() => setIsOpenAddress(true)}
+              />
             ) : (
               <input
                 type={input.type}
@@ -66,7 +82,10 @@ export const Form = ({ inputs, form, onSubmit }) => {
           <input required type="checkbox" className={styles.checkbox} />
           <label className={styles.label}>
             <a href={documentoTerminos} target="_blank">
-              <strong>Autorizo a ValCredit a consultar y reportar mi información a las centrales de riesgo</strong>
+              <strong>
+                Autorizo a ValCredit a consultar y reportar mi información a las
+                centrales de riesgo
+              </strong>
             </a>
           </label>
         </div>
@@ -80,12 +99,17 @@ export const Form = ({ inputs, form, onSubmit }) => {
           </label>
         </div>
         <div className={styles.inputContainerColumn}>
-          <input {...form.register("signature")} type="checkbox" className={styles.checkbox} />
+          <input
+            {...form.register("signature")}
+            type="checkbox"
+            className={styles.checkbox}
+          />
           <label className={styles.label}>
-            Autorizo {" "}
+            Autorizo{" "}
             <a href={firma} target="_blank">
               <strong>
-                 firmar electrónicamente y acepto las condiciones de contratación digital.
+                firmar electrónicamente y acepto las condiciones de contratación
+                digital.
               </strong>
             </a>
           </label>
@@ -99,6 +123,7 @@ export const Form = ({ inputs, form, onSubmit }) => {
       >
         Enviar
       </button>
+      {isOpenAdress && <ModalAdress setIsOpenAddress={setIsOpenAddress} formAdress={formAdress} formPrincipal={form} />}
     </>
   );
 };

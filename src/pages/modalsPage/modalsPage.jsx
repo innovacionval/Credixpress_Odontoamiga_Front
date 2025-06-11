@@ -16,8 +16,8 @@ export const ModalsPage = () => {
   const status = searchParams.get("status");
   const isCodeudor = searchParams.get("isCodeudor");
   const processId = searchParams.get("process_id");
-  const documentNumber = sessionStorage.getItem("docuemento");
-  const cellphoneNumber = sessionStorage.getItem("telefono");
+  const documento = sessionStorage.getItem("documento");
+  const cellphone = sessionStorage.getItem("cellphone");
 
   const [isSuccess, setIsSuccess] = useState(null);
   const [isSignatureSuccess, setIsSignatureSuccess] = useState(null);
@@ -26,8 +26,8 @@ export const ModalsPage = () => {
 
   const handleSignatureProcess = () => {
     validationFaceId({
-      document_number: documentNumber,
-      cellphone_number: cellphoneNumber,
+      document_number: documento,
+      cellphone_number: cellphone,
       id_request: idRequest,
       id_client: "5",
       redirect_url: "http://localhost:5173/modal"
@@ -83,24 +83,18 @@ export const ModalsPage = () => {
               <strong>¡Estás a un paso de obtener tu crédito!</strong>
             </p>
             <p>
-              <strong>
                 Ahora procederemos con la validación de tu identidad. <br />
                 Para Completar este proceso, asegúrate de contar con lo
                 siguiente:
-              </strong>
             </p>
             <p>
-              <strong>
                 Tu documento de identidad físico <br />
                 Acceso a la cámara frontal de tu dispositivo móvil <br />
                 Conexión estable a internet
-              </strong>
             </p>
             <p>
-              <strong>
                 Una vez validemos tu identidad, podrás firmar los documentos de
-                forma digital y habrás finalizado el proceso. ¡Así de fácil!
-              </strong>
+                forma digital y habrás finalizado el proceso. <br/> ¡Así de fácil!
             </p>
             <div className={stylesModal.modalFooter}>
               <button

@@ -58,7 +58,7 @@ export const FormDeudor = () => {
     }
 
     sessionStorage.setItem("docuemento", data.numeroDocumento);
-    sessionStorage.setItem("telefono", data.telefono);
+    sessionStorage.setItem("cellphone", data.telefono);
 
     const dataDebtor = {
       id_client:"5",

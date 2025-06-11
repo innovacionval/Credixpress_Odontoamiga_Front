@@ -16,6 +16,8 @@ export const ModalsPage = () => {
   const status = searchParams.get("status");
   const isCodeudor = searchParams.get("isCodeudor");
   const processId = searchParams.get("process_id");
+  const documentNumber = sessionStorage.getItem("docuemento");
+  const cellphoneNumber = sessionStorage.getItem("telefono");
 
   const [isSuccess, setIsSuccess] = useState(null);
   const [isSignatureSuccess, setIsSignatureSuccess] = useState(null);
@@ -24,9 +26,9 @@ export const ModalsPage = () => {
 
   const handleSignatureProcess = () => {
     validationFaceId({
-      document_number: "10618151003",
-      cellphone_number: "3204101697",
-      id_request:"294",
+      document_number: documentNumber,
+      cellphone_number: cellphoneNumber,
+      id_request: idRequest,
       id_client: "5",
       redirect_url: "http://localhost:5173/modal"
     }).then((res) => {

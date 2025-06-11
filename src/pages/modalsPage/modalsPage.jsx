@@ -17,18 +17,22 @@ export const ModalsPage = () => {
   const isCodeudor = searchParams.get("isCodeudor");
   const processId = searchParams.get("process_id");
 
+  const documento = sessionStorage.getItem("documento");
+  const cellphone = sessionStorage.getItem("cellphone");
+
   const [isSuccess, setIsSuccess] = useState(null);
   const [isSignatureSuccess, setIsSignatureSuccess] = useState(null);
   const navigate = useNavigate();
 
 
+
   const handleSignatureProcess = () => {
     validationFaceId({
-      document_number: "10618151003",
-      cellphone_number: "3204101697",
-      id_request:"294",
+      document_number: documento || "",
+      cellphone_number: cellphone || "",
+      id_request:idRequest,
       id_client: "5",
-      redirect_url: "https://innovacionval.github.io/Credixpress_Odontoamiga_Front/modal"
+      redirect_url: "https://neptuno.valcredit.co/credixpress_odontoamiga/modal?validation=fid"
     }).then((res) => {
       if(res?.token_url){
         window.open(res.token_url, "_blank");

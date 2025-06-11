@@ -9,7 +9,7 @@ import { RedirectOnLoad } from "./utils/redirect.js";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     {/*<BrowserRouter basename={'/Credixpress_Odontoamiga_Front/'}>*/}
-    <BrowserRouter basename={'credixpress_odontoamiga'}>
+    <BrowserRouter>
       <InfoSimulationProvider>
         <RedirectOnLoad />
         <App />

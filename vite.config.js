@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
    plugins: [react()],
    //base: '/Credixpress_Odontoamiga_Front/',
-   base: 'credixpress_odontoamiga'
+   //base: 'credixpress_odontoamiga'
 })
 

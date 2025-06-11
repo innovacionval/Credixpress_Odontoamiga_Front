@@ -44,3 +44,39 @@ export const validationSignature = async (data) => {
     throw error;
   }
 }
+
+export const validationSignatureOTP = async (data) => {
+  try {
+    const response = await axiosInstanceBearer2.get(`/signature/check_validation/truora_otp_dp`, {
+      params: {
+        process_id: data,
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error validating signature OTP:", error);
+    throw error;
+  }
+}
+
+export const approveRemediable = async (data) => {
+  try {
+    const response = await axiosInstanceBearer2.post("/request/approve_remedial", data);
+    return response.data;
+  }
+  catch (error) {
+    console.error("Error approving remediable signature:", error);
+    throw error;
+  }
+}
+
+export const rejectRemediable = async (data) => {
+  try {
+    const response = await axiosInstanceBearer2.post("/request/decline_remedial", data);
+    return response.data;
+  }
+  catch (error) {
+    console.error("Error rejecting remediable signature:", error);
+    throw error;
+  }
+}

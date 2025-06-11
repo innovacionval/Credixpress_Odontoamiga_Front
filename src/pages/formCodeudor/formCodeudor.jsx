@@ -19,6 +19,10 @@ export const FormCodeudor = () => {
   const idRequest = searchParams.get("idRequest");
 
   const onSubmit = (data) => {
+
+    sessionStorage.setItem("documento", data.numeroDocumento);
+    sessionStorage.setItem("cellphone", data.telefono);
+
     const dataCodebtor = {
       validation_type: "OTP",
       person_data: {
@@ -46,9 +50,15 @@ export const FormCodeudor = () => {
       })
       .catch((err) => {
         console.log(err);
-        navigate(
-          `/modal?idRequest=${idRequest}&idSignature=${err.response.data?.id_signature}&status=${err.response.data?.status}&isCodeudor=true`
-        );
+        if (err.response?.data?.status === "max_joint_debtors") {
+          setIsOpen(true);
+          return;
+        }
+        else{
+          navigate(
+            `/modal?idRequest=${idRequest}&idSignature=${err.response.data?.id_signature}&status=${err.response.data?.status}&isCodeudor=true`
+          );
+        }
       });
   };
   const inputs = [

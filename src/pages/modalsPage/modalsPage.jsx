@@ -85,24 +85,18 @@ export const ModalsPage = () => {
               <strong>¡Estás a un paso de obtener tu crédito!</strong>
             </p>
             <p>
-              <strong>
                 Ahora procederemos con la validación de tu identidad. <br />
                 Para Completar este proceso, asegúrate de contar con lo
                 siguiente:
-              </strong>
             </p>
             <p>
-              <strong>
                 Tu documento de identidad físico <br />
                 Acceso a la cámara frontal de tu dispositivo móvil <br />
                 Conexión estable a internet
-              </strong>
             </p>
             <p>
-              <strong>
                 Una vez validemos tu identidad, podrás firmar los documentos de
-                forma digital y habrás finalizado el proceso. ¡Así de fácil!
-              </strong>
+                forma digital y habrás finalizado el proceso. <br/> ¡Así de fácil!
             </p>
             <div className={stylesModal.modalFooter}>
               <button
